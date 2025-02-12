@@ -4,8 +4,8 @@ fn main() {
     println!("Komona Lange-zi prosactist");
     for text in [
         "c^u yuo estu i-tcana homa-lo",
-        "d*ii programo prosactu menya de-to",
-        "mio havu k^omu internacia-la anarkiizmi movesto",
+        "d*ii komp^u-tekta programo prosactu menya de-to",
+        "libera mio havu k^omu internacia-la anarkiizmi movesto",
     ] {
         let ast = Node::parse(text).unwrap();
         println!("{} = {:#?}", ast.format(), ast.clone(),);
