@@ -1,7 +1,7 @@
 use suffix::{ADJ, ADV, OBJ, OWN, VERB};
 
 fn main() {
-    println!("# Komona Lange-zi prosactist\n");
+    println!("# Komona Lange-zi prosactisto\n");
     for text in [
         "c^u yuo estu i-tcana homa-lo",
         "d*ii komp^u-tekta programengo prosactu menya de-to",
