@@ -1,14 +1,14 @@
 use suffix::{ADJ, ADV, OBJ, OWN, VERB};
 
 fn main() {
-    println!("Komona Lange-zi prosactist");
+    println!("Komona Lange-zi prosactist\n");
     for text in [
         "c^u yuo estu i-tcana homa-lo",
         "d*ii komp^u-tekta programo prosactu menya de-to",
         "libera mio havu k^omu internacia-la anarkiizmi movesto",
     ] {
         let ast = Node::parse(text).unwrap();
-        println!("{} = {:#?}", ast.format(), ast.clone(),);
+        println!("# {}\n```\n{:?}\n```\n", ast.format(), ast.clone(),);
     }
 }
 
