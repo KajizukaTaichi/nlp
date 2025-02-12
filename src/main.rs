@@ -2,9 +2,13 @@ use suffix::{ADJ, ADV, OBJ, OWN, VERB};
 
 fn main() {
     println!("Komona Lange-zi prosactist");
-    for text in ["c^u yuo estu e-tcana homa-lo", "mii izmo estilu anarkiizmo"] {
-        let ast = Node::parse(text);
-        dbg!(ast.clone(), ast.map(|x| x.format()));
+    for text in [
+        "c^u yuo estu i-tcana homa-lo",
+        "mio i-tilu yuo",
+        "mii izmo estilu anarkiizmo",
+    ] {
+        let ast = Node::parse(text).unwrap();
+        println!("{} = {:?}", ast.format(), ast.clone(),);
     }
 }
 
@@ -183,9 +187,9 @@ impl Node {
 
 #[derive(Clone, Debug)]
 struct Vocabulary(String);
-const BOCAS: [&str; 20] = [
-    "c^", "d*i", "mi", "yu", "est", "ed", "il", "av", "hom", "a-l", "e-t", "can", "izm", "ide",
-    "liber", "anarki", "ekt", "ist", "pros", "o-da",
+const BOCAS: [&str; 23] = [
+    "c^", "d*i", "mi", "yu", "est", "ed", "il", "av", "i-t", "hom", "a-l", "can", "izm", "ide",
+    "liber", "anarki", "ekt", "ist", "wa-k", "act", "mov", "pros", "o-da",
 ];
 
 impl Vocabulary {
