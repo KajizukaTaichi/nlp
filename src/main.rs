@@ -2,7 +2,7 @@ use suffix::{ADJ, ADV, OBJ, OWN, VERB};
 
 fn main() {
     // 賢い私は難しい問題を解ける
-    let text = "sma-ti fasta mio";
+    let text = "sma-ti mio faste canu harda problemo";
     let ast = Node::parse(text);
     dbg!(ast.clone());
 }
@@ -58,7 +58,7 @@ impl Node {
                 for i in tokens.get(srtidx..)? {
                     if let Some(i) = i.strip_suffix(OWN) {
                         result.push_str(&(i.to_string() + SPACE));
-                        return Some((Node::parse(&(result.trim().to_string() + "o")), index));
+                        return Some((Node::parse(&(result.trim().to_string() + "o")), index + 1));
                     } else {
                         result.push_str(&(i.to_string() + SPACE));
                     };
@@ -97,6 +97,7 @@ impl Node {
                 let (own, mut index) = get_owns(0)?;
                 let mut adjs = vec![];
                 while index < tokens.len() {
+                    dbg!(&get_after(index), &adjs);
                     let current = tokens.get(index)?;
                     if let Some(obj) = current.strip_suffix(OBJ) {
                         return Some(Node::Word {
@@ -106,7 +107,7 @@ impl Node {
                             } else {
                                 None
                             },
-                            adj: vec![],
+                            adj: adjs,
                         });
                     } else if let Some(adj) = current.strip_suffix(ADJ) {
                         adjs.push(Noun::parse(adj)?)
