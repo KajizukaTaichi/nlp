@@ -1,8 +1,8 @@
-use suffix::{ADJ, ADV, OBJ, VERB};
+use suffix::{ADJ, ADV, OBJ, OWN, VERB};
 
 fn main() {
     // 賢い私は難しい問題を解ける
-    let text = "sma-ta mio ba-ke estu sma-to";
+    let text = "sma-ta fasta mii ba-ke estu sma-to";
     let ast = Node::parse(text);
     dbg!(ast.clone());
 }
@@ -27,6 +27,7 @@ mod suffix {
 enum Node {
     Word {
         word: Noun,
+        own: Option<Box<Node>>,
         adj: Vec<Noun>,
     },
     Verb {
@@ -44,8 +45,9 @@ impl Node {
         if tokens.len() == 1 {
             if let Some(token) = tokens.first()?.strip_suffix(OBJ) {
                 return Some(Node::Word {
-                    adj: vec![],
                     word: Noun::parse(token)?,
+                    adj: vec![],
+                    own: None,
                 });
             }
         } else {
@@ -62,6 +64,19 @@ impl Node {
                     }
                 }
                 Some((result, index))
+            };
+            let get_owns = |srtidx: usize| {
+                let mut result = String::new();
+                let mut index = 0;
+                for i in tokens.get(srtidx..)? {
+                    if let Some(i) = i.strip_suffix(OWN) {
+                        return Some((Node::parse(&(result.trim().to_string() + "o")), index));
+                    } else {
+                        result.push_str(&(i.to_string() + SPACE));
+                    };
+                    index += 1;
+                }
+                None
             };
 
             if tokens.iter().any(|x| x.ends_with(VERB)) {
@@ -92,12 +107,25 @@ impl Node {
             }
 
             if tokens.first()?.ends_with(ADJ) {
-                let (adjs, index) = get_ads(ADJ, 0)?;
-                dbg!(&adjs, &index, &get_after(index)?);
-                let Node::Word { word, adj: _ } = Node::parse(&get_after(index)?)? else {
+                let (owns, index) = get_owns(0).unwrap_or((None, 0));
+                let (adjs, index) = get_ads(ADJ, index)?;
+                let Node::Word {
+                    word,
+                    adj: _,
+                    own: _,
+                } = Node::parse(&get_after(index)?)?
+                else {
                     return None;
                 };
-                return Some(Node::Word { word, adj: adjs });
+                return Some(Node::Word {
+                    word,
+                    adj: adjs,
+                    own: if let Some(i) = owns {
+                        Some(Box::new(i))
+                    } else {
+                        None
+                    },
+                });
             }
         }
         None
