@@ -238,7 +238,7 @@ impl Noun {
 
 #[derive(Clone, Debug)]
 struct Vocabulary(String);
-const BOCAS: [&str; 63] = [
+const BOCAS: [&str; 65] = [
     "d^",       // 命令
     "c^",       // 疑問
     "d*i",      // これ
@@ -276,9 +276,9 @@ const BOCAS: [&str; 63] = [
     "lit",      // 性質
     "aiz",      // 変化
     "scir",     // させる
-    "ne",       //　否定
+    "ne",       // 否定
     "yes",      // 肯定
-    "un",       //　無い
+    "un",       // 無い
     "on",       // 有る
     "in",       // 中に
     "ter",      // 越え
@@ -302,6 +302,8 @@ const BOCAS: [&str; 63] = [
     "wiz",      // 共に
     "stand",    // 立つ
     "deci",     // 決定
+    "frend",    // 友達
+    "bunt",     // 同盟
 ];
 
 impl Vocabulary {
