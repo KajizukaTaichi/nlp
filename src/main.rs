@@ -8,7 +8,7 @@ fn main() {
         "mii izmo estilu anarkiizmo",
     ] {
         let ast = Node::parse(text).unwrap();
-        println!("{} = {:?}", ast.format(), ast.clone(),);
+        println!("{} = {:#?}", ast.format(), ast.clone(),);
     }
 }
 
