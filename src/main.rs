@@ -5,7 +5,7 @@ fn main() {
     for text in [
         "c^u yuo estu i-tcana homa-lo",
         "d*ii programo prosactu menya de-to",
-        "mio havu k^omu internacioa-la anarkiizmi movesto",
+        "mio havu k^omu internacia-la anarkiizmi movesto",
     ] {
         let ast = Node::parse(text).unwrap();
         println!("{} = {:#?}", ast.format(), ast.clone(),);
@@ -63,7 +63,8 @@ impl Node {
                 for i in tokens.get(srtidx..)? {
                     if let Some(i) = i.strip_suffix(OWN) {
                         result.push_str(&(i.to_string() + SPACE));
-                        return Some((Node::parse(&(result.trim().to_string() + "o")), index + 1));
+                        result = result.trim().to_string() + "o";
+                        return Some((Node::parse(&result), index + 1));
                     } else {
                         result.push_str(&(i.to_string() + SPACE));
                     };
