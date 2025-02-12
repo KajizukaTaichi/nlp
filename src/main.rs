@@ -2,7 +2,7 @@ use suffix::{ADJ, ADV, OBJ, OWN, VERB};
 
 fn main() {
     // 賢い私は難しい問題を解ける
-    let text = "sma-ta fasta mii ba-ke estu sma-to";
+    let text = "sma-ti fasta mio";
     let ast = Node::parse(text);
     dbg!(ast.clone());
 }
@@ -52,24 +52,12 @@ impl Node {
             }
         } else {
             let get_after = |x| Some(tokens.get(x..)?.join(SPACE));
-            let get_ads = |x: char, srtidx: usize| {
-                let mut result = vec![];
-                let mut index = 0;
-                for i in tokens.get(srtidx..)? {
-                    if let Some(i) = i.strip_suffix(x) {
-                        result.push(Noun::parse(i)?);
-                        index += 1;
-                    } else {
-                        break;
-                    }
-                }
-                Some((result, index))
-            };
             let get_owns = |srtidx: usize| {
                 let mut result = String::new();
                 let mut index = 0;
                 for i in tokens.get(srtidx..)? {
                     if let Some(i) = i.strip_suffix(OWN) {
+                        result.push_str(&(i.to_string() + SPACE));
                         return Some((Node::parse(&(result.trim().to_string() + "o")), index));
                     } else {
                         result.push_str(&(i.to_string() + SPACE));
@@ -84,7 +72,6 @@ impl Node {
                 let mut advs = vec![];
                 let mut obj = String::new();
                 while index < tokens.len() {
-                    dbg!(&advs, &obj);
                     let current = tokens.get(index)?;
                     if let Some(verb) = current.strip_suffix(VERB) {
                         return Some(Node::Verb {
@@ -106,26 +93,26 @@ impl Node {
                 }
             }
 
-            if tokens.first()?.ends_with(ADJ) {
-                let (owns, index) = get_owns(0).unwrap_or((None, 0));
-                let (adjs, index) = get_ads(ADJ, index)?;
-                let Node::Word {
-                    word,
-                    adj: _,
-                    own: _,
-                } = Node::parse(&get_after(index)?)?
-                else {
-                    return None;
-                };
-                return Some(Node::Word {
-                    word,
-                    adj: adjs,
-                    own: if let Some(i) = owns {
-                        Some(Box::new(i))
-                    } else {
-                        None
-                    },
-                });
+            if tokens.iter().any(|x| x.ends_with(OBJ)) {
+                let (own, mut index) = get_owns(0)?;
+                let mut adjs = vec![];
+                while index < tokens.len() {
+                    let current = tokens.get(index)?;
+                    if let Some(obj) = current.strip_suffix(OBJ) {
+                        return Some(Node::Word {
+                            word: Noun::parse(obj)?,
+                            own: if let Some(own) = own {
+                                Some(Box::new(own))
+                            } else {
+                                None
+                            },
+                            adj: vec![],
+                        });
+                    } else if let Some(adj) = current.strip_suffix(ADJ) {
+                        adjs.push(Noun::parse(adj)?)
+                    }
+                    index += 1
+                }
             }
         }
         None
