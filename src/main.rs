@@ -3,7 +3,7 @@ use suffix::{ADJ, ADV, OBJ, OWN, VERB};
 fn main() {
     println!("# Komona Lange-zi prosactist\n");
     for text in [
-        "Rumiao seidu c^u yuo estu i-tcana homa-lo",
+        "c^u yuo estu i-tcana homa-lo",
         "d*ii komp^u-tekta programengo prosactu menya de-to",
         "mio stronge k^omavu internacia-la anarkiizmi movesto inu bes^mondo",
     ] {
