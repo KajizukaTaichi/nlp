@@ -4,8 +4,8 @@ fn main() {
     println!("Komona Lange-zi prosactist");
     for text in [
         "c^u yuo estu i-tcana homa-lo",
-        "mio i-tilu yuo",
-        "mii izmo estilu anarkiizmo",
+        "d*ii programo prosactu menya de-to",
+        "mio havu k^omu internacioa-la anarkiizmi movesto",
     ] {
         let ast = Node::parse(text).unwrap();
         println!("{} = {:#?}", ast.format(), ast.clone(),);
@@ -187,9 +187,12 @@ impl Node {
 
 #[derive(Clone, Debug)]
 struct Vocabulary(String);
-const BOCAS: [&str; 23] = [
-    "c^", "d*i", "mi", "yu", "est", "ed", "il", "av", "i-t", "hom", "a-l", "can", "izm", "ide",
-    "liber", "anarki", "ekt", "ist", "wa-k", "act", "mov", "pros", "o-da",
+const BOCAS: [&str; 51] = [
+    "d^", "c^", "d*i", "da*t", "mi", "yu", "est", "ed", "il", "av", "i-t", "hom", "a-l", "can",
+    "izm", "ide", "liber", "soci", "naci", "anarki", "ru-n", "komp^u-t", "saiens", "program",
+    "ekt", "ist", "wa-k", "act", "mov", "pros", "o-da", "prei", "raik", "lit", "aiz", "scir", "ne",
+    "yes", "un", "on", "in", "ter", "ing", "de-t", "eny", "meny", "k^om", "ho-p", "teik", "los",
+    "hav",
 ];
 
 impl Vocabulary {
