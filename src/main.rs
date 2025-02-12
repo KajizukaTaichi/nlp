@@ -3,11 +3,9 @@ use suffix::{ADJ, ADV, OBJ, OWN, VERB};
 fn main() {
     println!("# Komona Lange-zi prosactist\n");
     for text in [
-        "c^u yuo estu i-tcana homa-lo",
+        "Rumiao seidu c^u yuo estu i-tcana homa-lo",
         "d*ii komp^u-tekta programengo prosactu menya de-to",
         "mio stronge k^omavu internacia-la anarkiizmi movesto inu bes^mondo",
-        "d*io estu mia-li finala decilita batlo",
-        "wizu internacia-lo standaizu homa-lo",
     ] {
         let ast = Node::parse(text).unwrap();
         println!("> {}\n```\n{:#?}\n```\n", ast.format(), ast.clone(),);
@@ -238,7 +236,7 @@ impl Noun {
 
 #[derive(Clone, Debug)]
 struct Vocabulary(String);
-const BOCAS: [&str; 65] = [
+const BOCAS: [&str; 67] = [
     "d^",       // 命令
     "c^",       // 疑問
     "d*i",      // これ
@@ -250,6 +248,8 @@ const BOCAS: [&str; 65] = [
     "il",       // 未来
     "av",       // 現在
     "i-t",      // 食べる
+    "spi-k",    // 言う/喋る
+    "li*sn",    // 聞く
     "hom",      // 人間
     "a-l",      // 集合
     "can",      // 可能
