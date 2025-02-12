@@ -7,7 +7,7 @@ fn main() {
         "d*ii komp^u-tekta programengo prosactu menya de-to",
         "mio stronge k^omavu internacia-la anarkiizmi movesto inu bes^mondo",
         "d*io estu mia-li finala decilita batlo",
-        "wizu internacia-lo",
+        "wizu internacia-lo standaizu homa-lo",
     ] {
         let ast = Node::parse(text).unwrap();
         println!("> {}\n```\n{:#?}\n```\n", ast.format(), ast.clone(),);
@@ -238,13 +238,70 @@ impl Noun {
 
 #[derive(Clone, Debug)]
 struct Vocabulary(String);
-const BOCAS: [&str; 62] = [
-    "d^", "c^", "d*i", "da*t", "mi", "yu", "est", "ed", "il", "av", "i-t", "hom", "a-l", "can",
-    "izm", "ide", "liber", "soci", "naci", "anarki", "ru-n", "komp^u-t", "saiens", "program",
-    "ekt", "ist", "wa-k", "act", "mov", "pros", "o-da", "prei", "raik", "lit", "aiz", "scir", "ne",
-    "yes", "un", "on", "in", "ter", "eng", "de-t", "eny", "meny", "k^om", "ho-p", "teik", "los",
-    "hav", "strong", "weak", "gu*d", "ba*d", "bes^", "mond", "batl", "final", "wiz", "raiz",
-    "deci",
+const BOCAS: [&str; 63] = [
+    "d^",       // 命令
+    "c^",       // 疑問
+    "d*i",      // これ
+    "da*t",     // それ
+    "mi",       // 私
+    "yu",       // あなた
+    "est",      // 説明
+    "ed",       // 過去
+    "il",       // 未来
+    "av",       // 現在
+    "i-t",      // 食べる
+    "hom",      // 人間
+    "a-l",      // 集合
+    "can",      // 可能
+    "izm",      // 主義/思想
+    "ist",      // もの(主体)
+    "ide",      // 概念
+    "liber",    // 自由
+    "soci",     // 社会
+    "naci",     // 国家
+    "blast",    // 権力
+    "anarki",   // 無政府
+    "ru-n",     // 走る
+    "komp^u-t", // 計算
+    "saiens",   // 科学
+    "program",  // プログラム
+    "ekt",      // 機械
+    "wa-k",     // 仕事
+    "act",      // する(行為)
+    "mov",      // 動き
+    "pros",     // 処理
+    "o-da",     // 命令
+    "prei",     // 遊び
+    "raik",     // 比喩
+    "lit",      // 性質
+    "aiz",      // 変化
+    "scir",     // させる
+    "ne",       //　否定
+    "yes",      // 肯定
+    "un",       //　無い
+    "on",       // 有る
+    "in",       // 中に
+    "ter",      // 越え
+    "eng",      // すること
+    "de-t",     // データ
+    "eny",      // 何か
+    "meny",     // 複数の
+    "k^om",     // 興味
+    "ho-p",     // 希望
+    "teik",     // 取得
+    "los",      // 失う
+    "hav",      // 持つ
+    "strong",   // 強い
+    "weak",     // 弱い
+    "gu*d",     // 良い
+    "ba*d",     // 悪い
+    "bes^",     // 全て
+    "mond",     // 世界
+    "batl",     // 戦い
+    "final",    // 最後
+    "wiz",      // 共に
+    "stand",    // 立つ
+    "deci",     // 決定
 ];
 
 impl Vocabulary {
