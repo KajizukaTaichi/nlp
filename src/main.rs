@@ -4,7 +4,7 @@ fn main() {
     // 賢い私は難しい問題を解ける
     let text = "sma-ti mio faste canu ha-da problemo";
     let ast = Node::parse(text);
-    dbg!(ast.clone());
+    dbg!(ast.clone(), ast.map(|x| x.format()));
 }
 
 const SPACE: &str = " ";
@@ -117,6 +117,67 @@ impl Node {
             }
         }
         None
+    }
+
+    fn format(&self) -> String {
+        match self {
+            Node::Verb {
+                verb,
+                adv,
+                subj,
+                obj,
+            } => {
+                format!(
+                    "{}{}{}u {}",
+                    subj.clone()
+                        .map(|x| x.format() + SPACE)
+                        .unwrap_or("".to_string()),
+                    {
+                        let x = adv
+                            .iter()
+                            .map(|x| x.format())
+                            .collect::<Vec<String>>()
+                            .join(" ");
+                        if x.is_empty() {
+                            x
+                        } else {
+                            format!("{x}e ")
+                        }
+                    },
+                    verb.format(),
+                    obj.format()
+                )
+            }
+            Node::Word { word, own, adj } => {
+                format!(
+                    "{}{}{}o",
+                    own.clone()
+                        .map(|x| {
+                            let x = x.format();
+                            if let Some(x) = x.strip_suffix(OBJ) {
+                                x.to_string()
+                            } else {
+                                x
+                            }
+                        } + "i"
+                            + SPACE)
+                        .unwrap_or("".to_string()),
+                    {
+                        let x = adj
+                            .iter()
+                            .map(|x| x.format())
+                            .collect::<Vec<String>>()
+                            .join(" ");
+                        if x.is_empty() {
+                            x
+                        } else {
+                            format!("{x}a ")
+                        }
+                    },
+                    word.format(),
+                )
+            }
+        }
     }
 }
 
