@@ -187,30 +187,6 @@ impl Node {
 }
 
 #[derive(Clone, Debug)]
-struct Vocabulary(String);
-const BOCAS: [&str; 57] = [
-    "d^", "c^", "d*i", "da*t", "mi", "yu", "est", "ed", "il", "av", "i-t", "hom", "a-l", "can",
-    "izm", "ide", "liber", "soci", "naci", "anarki", "ru-n", "komp^u-t", "saiens", "program",
-    "ekt", "ist", "wa-k", "act", "mov", "pros", "o-da", "prei", "raik", "lit", "aiz", "scir", "ne",
-    "yes", "un", "on", "in", "ter", "eng", "de-t", "eny", "meny", "k^om", "ho-p", "teik", "los",
-    "hav", "strong", "weak", "gu*d", "ba*d", "bes^", "mond",
-];
-
-impl Vocabulary {
-    fn parse(source: &str) -> Option<Self> {
-        if BOCAS.contains(&source) {
-            Some(Vocabulary(source.to_string()))
-        } else {
-            None
-        }
-    }
-
-    fn format(&self) -> String {
-        self.0.to_string()
-    }
-}
-
-#[derive(Clone, Debug)]
 struct Noun(Vec<Vocabulary>);
 
 impl Noun {
@@ -241,5 +217,29 @@ impl Noun {
             .map(|x| x.format())
             .collect::<Vec<String>>()
             .concat()
+    }
+}
+
+#[derive(Clone, Debug)]
+struct Vocabulary(String);
+const BOCAS: [&str; 57] = [
+    "d^", "c^", "d*i", "da*t", "mi", "yu", "est", "ed", "il", "av", "i-t", "hom", "a-l", "can",
+    "izm", "ide", "liber", "soci", "naci", "anarki", "ru-n", "komp^u-t", "saiens", "program",
+    "ekt", "ist", "wa-k", "act", "mov", "pros", "o-da", "prei", "raik", "lit", "aiz", "scir", "ne",
+    "yes", "un", "on", "in", "ter", "eng", "de-t", "eny", "meny", "k^om", "ho-p", "teik", "los",
+    "hav", "strong", "weak", "gu*d", "ba*d", "bes^", "mond",
+];
+
+impl Vocabulary {
+    fn parse(source: &str) -> Option<Self> {
+        if BOCAS.contains(&source) {
+            Some(Vocabulary(source.to_string()))
+        } else {
+            None
+        }
+    }
+
+    fn format(&self) -> String {
+        self.0.to_string()
     }
 }
