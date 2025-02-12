@@ -9,7 +9,7 @@ fn main() {
         "finale deciedu joinu liberraika anarkiizmi bunto wizu mii frendo",
     ] {
         let ast = Node::parse(text).unwrap();
-        println!("> {}\n```\n{:#?}\n```\n", ast.format(), ast.clone(),);
+        println!("> {}\n```\n{:?}\n```\n", ast.format(), ast.clone(),);
     }
 }
 
