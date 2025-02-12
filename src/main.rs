@@ -1,7 +1,7 @@
 use suffix::{ADJ, ADV, OBJ, OWN, VERB};
 
 fn main() {
-    println!("Komona Lange-zo");
+    println!("Komona Lange-zi prosactist");
     // バカな賢者の私は難しい問題を速くできる
     let text = "ba-ka sma-ti mio faste canu ha-da problemo";
     let ast = Node::parse(text);
