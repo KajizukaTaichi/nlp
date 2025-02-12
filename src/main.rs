@@ -39,6 +39,7 @@ enum Node {
 
 impl Node {
     fn parse(source: &str) -> Option<Self> {
+        let source = source.trim();
         let tokens: Vec<&str> = source.split_whitespace().collect();
         if tokens.len() == 1 {
             if let Some(token) = tokens.first()?.strip_suffix(OBJ) {
@@ -49,10 +50,10 @@ impl Node {
             }
         } else {
             let get_after = |x| Some(tokens.get(x..)?.join(SPACE));
-            let get_ads = |x: char, srtidx: usize, endidx: usize| {
+            let get_ads = |x: char, srtidx: usize| {
                 let mut result = vec![];
                 let mut index = 0;
-                for i in tokens.get(srtidx..endidx)? {
+                for i in tokens.get(srtidx..)? {
                     if let Some(i) = i.strip_suffix(x) {
                         result.push(Noun::parse(i)?);
                         index += 1;
@@ -63,11 +64,12 @@ impl Node {
                 Some((result, index))
             };
 
-            {
+            if tokens.iter().any(|x| x.ends_with(VERB)) {
                 let mut index = 0;
                 let mut advs = vec![];
                 let mut obj = String::new();
                 while index < tokens.len() {
+                    dbg!(&advs, &obj);
                     let current = tokens.get(index)?;
                     if let Some(verb) = current.strip_suffix(VERB) {
                         return Some(Node::Verb {
@@ -90,14 +92,15 @@ impl Node {
             }
 
             if tokens.first()?.ends_with(ADJ) {
-                let (adjs, index) = get_ads(ADJ, 0, tokens.len())?;
-                return Some(Node::Word {
-                    word: Noun::parse(&get_after(index)?)?,
-                    adj: adjs,
-                });
+                let (adjs, index) = get_ads(ADJ, 0)?;
+                dbg!(&adjs, &index, &get_after(index)?);
+                let Node::Word { word, adj: _ } = Node::parse(&get_after(index)?)? else {
+                    return None;
+                };
+                return Some(Node::Word { word, adj: adjs });
             }
         }
-        todo!()
+        None
     }
 }
 
