@@ -2,10 +2,10 @@ use suffix::{ADJ, ADV, OBJ, OWN, VERB};
 
 fn main() {
     println!("Komona Lange-zi prosactist");
-    // バカな賢者の私は難しい問題を速くできる
-    let text = "ba-ka sma-ti mio faste canu ha-da problemo";
-    let ast = Node::parse(text);
-    dbg!(ast.clone(), ast.map(|x| x.format()));
+    for text in ["c^u yuo estu e-tcana homa-lo", "mii izmo estilu anarkiizmo"] {
+        let ast = Node::parse(text);
+        dbg!(ast.clone(), ast.map(|x| x.format()));
+    }
 }
 
 const SPACE: &str = " ";
@@ -182,47 +182,23 @@ impl Node {
 }
 
 #[derive(Clone, Debug)]
-enum Vocabulary {
-    Tu,
-    Mi,
-    Est,
-    Smart,
-    Bak,
-    Can,
-    Fast,
-    Hard,
-    Problem,
-}
+struct Vocabulary(String);
+const BOCAS: [&str; 20] = [
+    "c^", "d*i", "mi", "yu", "est", "ed", "il", "av", "hom", "a-l", "e-t", "can", "izm", "ide",
+    "liber", "anarki", "ekt", "ist", "pros", "o-da",
+];
 
 impl Vocabulary {
     fn parse(source: &str) -> Option<Self> {
-        Some(match source {
-            "mi" => Self::Mi,
-            "t:u" => Self::Tu,
-            "est" => Self::Est,
-            "sma-t" => Self::Smart,
-            "ba-k" => Self::Bak,
-            "can" => Self::Can,
-            "fast" => Self::Fast,
-            "ha-d" => Self::Hard,
-            "problem" => Self::Problem,
-            _ => return None,
-        })
+        if BOCAS.contains(&source) {
+            Some(Vocabulary(source.to_string()))
+        } else {
+            None
+        }
     }
 
     fn format(&self) -> String {
-        match self {
-            Self::Mi => "mi",
-            Self::Tu => "t:u",
-            Self::Est => "est",
-            Self::Smart => "sma-t",
-            Self::Bak => "ba-k",
-            Self::Can => "can",
-            Self::Fast => "fast",
-            Self::Hard => "ha-d",
-            Self::Problem => "problem",
-        }
-        .to_string()
+        self.0.to_string()
     }
 }
 
