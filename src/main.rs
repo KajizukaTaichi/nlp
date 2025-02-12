@@ -1,8 +1,9 @@
 use suffix::{ADJ, ADV, OBJ, OWN, VERB};
 
 fn main() {
-    // 賢い私は難しい問題を解ける
-    let text = "sma-ti mio faste canu ha-da problemo";
+    println!("Komona Lange-zo");
+    // バカな賢者の私は難しい問題を速くできる
+    let text = "ba-ka sma-ti mio faste canu ha-da problemo";
     let ast = Node::parse(text);
     dbg!(ast.clone(), ast.map(|x| x.format()));
 }
@@ -41,7 +42,6 @@ enum Node {
 impl Node {
     fn parse(source: &str) -> Option<Self> {
         let source = source.trim();
-        dbg!(&source);
         let tokens: Vec<&str> = source.split_whitespace().collect();
         if tokens.len() == 1 {
             if let Some(token) = tokens.first()?.strip_suffix(OBJ) {
