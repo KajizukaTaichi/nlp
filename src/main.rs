@@ -4,7 +4,7 @@ fn main() {
     println!("# Komona Lange-zi prosactist\n");
     for text in [
         "c^u yuo estu i-tcana homa-lo",
-        "d*ii komp^u-tekta programo prosactu menya de-to",
+        "d*ii komp^u-tekta programengo prosactu menya de-to",
         "mio stronge k^omavu internacia-la anarkiizmi movesto",
     ] {
         let ast = Node::parse(text).unwrap();
@@ -192,7 +192,7 @@ const BOCAS: [&str; 55] = [
     "d^", "c^", "d*i", "da*t", "mi", "yu", "est", "ed", "il", "av", "i-t", "hom", "a-l", "can",
     "izm", "ide", "liber", "soci", "naci", "anarki", "ru-n", "komp^u-t", "saiens", "program",
     "ekt", "ist", "wa-k", "act", "mov", "pros", "o-da", "prei", "raik", "lit", "aiz", "scir", "ne",
-    "yes", "un", "on", "in", "ter", "ing", "de-t", "eny", "meny", "k^om", "ho-p", "teik", "los",
+    "yes", "un", "on", "in", "ter", "eng", "de-t", "eny", "meny", "k^om", "ho-p", "teik", "los",
     "hav", "strong", "weak", "gu*d", "ba*d",
 ];
 
