@@ -1,11 +1,10 @@
-use suffix::{ADJ, OBJ, VERB};
+use suffix::{ADJ, ADV, OBJ, VERB};
 
 fn main() {
-    println!("Hello, world!");
     // 賢い私は難しい問題を解ける
-    let text = "smartest";
-    let ast = Noun::parse(text);
-    dbg!(ast.clone(), ast.map(|x| x.format()));
+    let text = "sma-ta mio ba-ke estu sma-to";
+    let ast = Node::parse(text);
+    dbg!(ast.clone());
 }
 
 const SPACE: &str = " ";
@@ -49,12 +48,12 @@ impl Node {
                 });
             }
         } else {
-            let get_token = |x| Some(tokens.get(x..)?.join(SPACE));
-            let get_ads = |x: char, srtidx: usize| {
+            let get_after = |x| Some(tokens.get(x..)?.join(SPACE));
+            let get_ads = |x: char, srtidx: usize, endidx: usize| {
                 let mut result = vec![];
                 let mut index = 0;
-                for i in tokens.get(srtidx..)? {
-                    if i.ends_with(x) {
+                for i in tokens.get(srtidx..endidx)? {
+                    if let Some(i) = i.strip_suffix(x) {
                         result.push(Noun::parse(i)?);
                         index += 1;
                     } else {
@@ -63,16 +62,37 @@ impl Node {
                 }
                 Some((result, index))
             };
+
+            {
+                let mut index = 0;
+                let mut advs = vec![];
+                let mut obj = String::new();
+                while index < tokens.len() {
+                    let current = tokens.get(index)?;
+                    if let Some(verb) = current.strip_suffix(VERB) {
+                        return Some(Node::Verb {
+                            verb: Noun::parse(verb)?,
+                            adv: advs,
+                            subj: if obj.is_empty() {
+                                None
+                            } else {
+                                Some(Box::new(Node::parse(obj.trim())?))
+                            },
+                            obj: Box::new(Node::parse(&get_after(index + 1)?)?),
+                        });
+                    } else if let Some(adv) = current.strip_suffix(ADV) {
+                        advs.push(Noun::parse(adv)?);
+                    } else {
+                        obj.push_str(&(current.to_string() + SPACE));
+                    }
+                    index += 1
+                }
+            }
+
             if tokens.first()?.ends_with(ADJ) {
-                let (adjs, index) = get_ads(ADJ, 0)?;
+                let (adjs, index) = get_ads(ADJ, 0, tokens.len())?;
                 return Some(Node::Word {
-                    word: Noun::parse(&get_token(index)?)?,
-                    adj: adjs,
-                });
-            } else if tokens.first()?.ends_with(VERB) {
-                let (adjs, index) = get_ads(ADJ, 0)?;
-                return Some(Node::Word {
-                    word: Noun::parse(&get_token(index)?)?,
+                    word: Noun::parse(&get_after(index)?)?,
                     adj: adjs,
                 });
             }
@@ -100,7 +120,7 @@ impl Vocabulary {
             "mi" => Self::Mi,
             "t:u" => Self::Tu,
             "est" => Self::Est,
-            "smart" => Self::Smart,
+            "sma-t" => Self::Smart,
             "ba-k" => Self::Bak,
             "can" => Self::Can,
             "fast" => Self::Fast,
@@ -115,7 +135,7 @@ impl Vocabulary {
             Self::Mi => "mi",
             Self::Tu => "t:u",
             Self::Est => "est",
-            Self::Smart => "smart",
+            Self::Smart => "sma-t",
             Self::Bak => "ba-k",
             Self::Can => "can",
             Self::Fast => "fast",
