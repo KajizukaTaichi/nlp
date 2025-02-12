@@ -6,6 +6,8 @@ fn main() {
         "c^u yuo estu i-tcana homa-lo",
         "d*ii komp^u-tekta programengo prosactu menya de-to",
         "mio stronge k^omavu internacia-la anarkiizmi movesto inu bes^mondo",
+        "d*io estu mia-li finala decilita batlo",
+        "wizu internacia-lo",
     ] {
         let ast = Node::parse(text).unwrap();
         println!("> {}\n```\n{:#?}\n```\n", ast.format(), ast.clone(),);
@@ -33,11 +35,11 @@ enum Node {
     Word {
         word: Noun,
         own: Option<Box<Node>>,
-        adj: Vec<Noun>,
+        adj: Vec<Node>,
     },
     Verb {
         verb: Noun,
-        adv: Vec<Noun>,
+        adv: Vec<Node>,
         subj: Option<Box<Node>>,
         obj: Box<Node>,
     },
@@ -76,24 +78,34 @@ impl Node {
             if tokens.iter().any(|x| x.ends_with(VERB)) {
                 let mut index = 0;
                 let mut advs = vec![];
-                let mut obj = String::new();
+                let mut subj = String::new();
+                let mut flag = false;
+                let mut temp = String::new();
                 while index < tokens.len() {
                     let current = tokens.get(index)?;
                     if let Some(verb) = current.strip_suffix(VERB) {
                         return Some(Node::Verb {
                             verb: Noun::parse(verb)?,
                             adv: advs,
-                            subj: if obj.is_empty() {
+                            subj: if subj.is_empty() {
                                 None
                             } else {
-                                Some(Box::new(Node::parse(obj.trim())?))
+                                Some(Box::new(Node::parse(subj.trim())?))
                             },
                             obj: Box::new(Node::parse(&get_after(index + 1)?)?),
                         });
                     } else if let Some(adv) = current.strip_suffix(ADV) {
-                        advs.push(Noun::parse(adv)?);
+                        advs.push(Node::parse(&([&temp.trim(), adv].join(SPACE) + "o"))?);
+                        temp = String::new()
+                    } else if current.ends_with(OBJ) {
+                        subj = [&subj, current.to_owned()].join(SPACE);
+                        flag = true
                     } else {
-                        obj.push_str(&(current.to_string() + SPACE));
+                        if flag {
+                            temp.push_str(&(current.to_string() + SPACE));
+                        } else {
+                            subj.push_str(&(current.to_string() + SPACE));
+                        }
                     }
                     index += 1
                 }
@@ -102,6 +114,7 @@ impl Node {
             if tokens.iter().any(|x| x.ends_with(OBJ)) {
                 let (own, mut index) = get_owns(0).unwrap_or((None, 0));
                 let mut adjs = vec![];
+                let mut temp = String::new();
                 while index < tokens.len() {
                     let current = tokens.get(index)?;
                     if let Some(obj) = current.strip_suffix(OBJ) {
@@ -115,7 +128,10 @@ impl Node {
                             adj: adjs,
                         });
                     } else if let Some(adj) = current.strip_suffix(ADJ) {
-                        adjs.push(Noun::parse(adj)?)
+                        adjs.push(Node::parse(&([&temp.trim(), adj].join(SPACE) + "o"))?);
+                        temp = String::new()
+                    } else {
+                        temp.push_str(&(current.to_string() + SPACE));
                     }
                     index += 1
                 }
@@ -137,18 +153,18 @@ impl Node {
                     subj.clone()
                         .map(|x| x.format() + SPACE)
                         .unwrap_or("".to_string()),
-                    {
-                        let x = adv
-                            .iter()
-                            .map(|x| x.format())
-                            .collect::<Vec<String>>()
-                            .join(" ");
-                        if x.is_empty() {
-                            x
-                        } else {
-                            format!("{x}e ")
-                        }
-                    },
+                    adv.iter()
+                        .map(|x| {
+                            let x = x.format();
+                            if let Some(x) = x.strip_suffix(OBJ) {
+                                x.to_string()
+                            } else {
+                                x
+                            }
+                        } + "e"
+                            + SPACE)
+                        .collect::<Vec<String>>()
+                        .join(SPACE),
                     verb.format(),
                     obj.format()
                 )
@@ -167,18 +183,18 @@ impl Node {
                         } + "i"
                             + SPACE)
                         .unwrap_or("".to_string()),
-                    {
-                        let x = adj
-                            .iter()
-                            .map(|x| x.format())
-                            .collect::<Vec<String>>()
-                            .join(" ");
-                        if x.is_empty() {
-                            x
-                        } else {
-                            format!("{x}a ")
-                        }
-                    },
+                    adj.iter()
+                        .map(|x| {
+                            let x = x.format();
+                            if let Some(x) = x.strip_suffix(OBJ) {
+                                x.to_string()
+                            } else {
+                                x
+                            }
+                        } + "a"
+                            + SPACE)
+                        .collect::<Vec<String>>()
+                        .join(SPACE),
                     word.format(),
                 )
             }
@@ -222,12 +238,13 @@ impl Noun {
 
 #[derive(Clone, Debug)]
 struct Vocabulary(String);
-const BOCAS: [&str; 57] = [
+const BOCAS: [&str; 62] = [
     "d^", "c^", "d*i", "da*t", "mi", "yu", "est", "ed", "il", "av", "i-t", "hom", "a-l", "can",
     "izm", "ide", "liber", "soci", "naci", "anarki", "ru-n", "komp^u-t", "saiens", "program",
     "ekt", "ist", "wa-k", "act", "mov", "pros", "o-da", "prei", "raik", "lit", "aiz", "scir", "ne",
     "yes", "un", "on", "in", "ter", "eng", "de-t", "eny", "meny", "k^om", "ho-p", "teik", "los",
-    "hav", "strong", "weak", "gu*d", "ba*d", "bes^", "mond",
+    "hav", "strong", "weak", "gu*d", "ba*d", "bes^", "mond", "batl", "final", "wiz", "raiz",
+    "deci",
 ];
 
 impl Vocabulary {
