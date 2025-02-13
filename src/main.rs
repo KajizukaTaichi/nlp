@@ -4,9 +4,8 @@ fn main() {
     println!("# Komona Lange-zi prosactisto\n");
     for text in [
         "c^u yuo estu i-tcana homa-lo",
-        "re-zunu t:u-da-ka",
         "d*ii komp^u-tekta programengo prosactu menya de-to",
-        "mio stronge k^omavu internacia-la antiwa-ri movesto inu bes^mondo",
+        "mio powafula k^omavu internacia-la antiwa-ri movesto inu bes^mondo",
         "finale deciedu joinu libero-straika anarkiizmi bunto wizu mii frendo",
     ] {
         let ast = Node::parse(text).unwrap();
