@@ -4,6 +4,7 @@ fn main() {
     println!("# Komona Lange-zi prosactisto\n");
     for text in [
         "c^u yuo estu i-tcana homa-lo",
+        "re-zunu t:u-da-ka",
         "d*ii komp^u-tekta programengo prosactu menya de-to",
         "mio stronge k^omavu internacia-la antiwa-ri movesto inu bes^mondo",
         "finale deciedu joinu libero-straika anarkiizmi bunto wizu mii frendo",
@@ -237,14 +238,17 @@ impl Noun {
 
 #[derive(Clone, Debug)]
 struct Vocabulary(String);
-const BOCAS: [&str; 78] = [
+const BOCAS: [&str; 88] = [
     "d^",       // 命令
     "c^",       // 疑問
+    "wa*t",     // 何の
     "d*i",      // これ
     "da*t",     // それ
     "mi",       // 私
     "yu",       // あなた
     "hi-",      // 彼
+    "taim",     // 時間
+    "land",     // 場所
     "est",      // 説明
     "ed",       // 過去
     "il",       // 未来
@@ -262,7 +266,9 @@ const BOCAS: [&str; 78] = [
     "ist",      // もの(主体)
     "ide",      // 概念
     "liber",    // 自由
+    "re-zun",   // 理性
     "soci",     // 社会
+    "stran",    // 地域/田舎
     "naci",     // 国家
     "blast",    // 権力
     "anarki",   // 無政府
@@ -276,7 +282,7 @@ const BOCAS: [&str; 78] = [
     "mov",      // 動き
     "pros",     // 処理
     "o-da",     // 命令
-    "prei",     // 遊び
+    "plei",     // 遊び
     "raik",     // 比喩
     "lit",      // 性質
     "aiz",      // 変化
@@ -299,10 +305,15 @@ const BOCAS: [&str; 78] = [
     "hav",      // 持つ
     "o-st",     // 最上級
     "e-r",      // 比較級
-    "strong",   // 強い
-    "weak",     // 弱い
+    "t:u-",     // も/過ぎる
+    "pawa",     // 力/体力
+    "brein",    // 脳/知性
+    "ful",      // 強い
+    "les",      // 弱い
     "gu*d",     // 良い
     "ba*d",     // 悪い
+    "lo*t",     // 多い
+    "bi*t",     // 少ない/ビット
     "bes^",     // 全て
     "mond",     // 世界
     "batl",     // 戦い
