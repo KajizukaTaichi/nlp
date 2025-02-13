@@ -5,8 +5,8 @@ fn main() {
     for text in [
         "c^u yuo estu i-tcana homa-lo",
         "d*ii komp^u-tekta programengo prosactu menya de-to",
-        "mio stronge k^omavu internacia-la antibatla-li movesto inu bes^mondo",
-        "finale deciedu joinu liberraika anarkiizmi bunto wizu mii frendo",
+        "mio stronge k^omavu internacia-la antiwa-ri movesto inu bes^mondo",
+        "finale deciedu joinu libero-straika anarkiizmi bunto wizu mii frendo",
     ] {
         let ast = Node::parse(text).unwrap();
         println!("> {}\n```\n{:?}\n```\n", ast.format(), ast.clone());
@@ -237,7 +237,7 @@ impl Noun {
 
 #[derive(Clone, Debug)]
 struct Vocabulary(String);
-const BOCAS: [&str; 72] = [
+const BOCAS: [&str; 78] = [
     "d^",       // 命令
     "c^",       // 疑問
     "d*i",      // これ
@@ -251,7 +251,10 @@ const BOCAS: [&str; 72] = [
     "av",       // 現在
     "i-t",      // 食べる
     "spi-k",    // 言う/喋る
-    "li*sn",    // 聞く
+    "a:ud",     // 聞く
+    "lu*k",     // 見る
+    "sve-t",    // 光
+    "da-k",     // 闇
     "hom",      // 人間
     "a-l",      // 集合
     "can",      // 可能
@@ -294,6 +297,8 @@ const BOCAS: [&str; 72] = [
     "teik",     // 取得
     "los",      // 失う
     "hav",      // 持つ
+    "o-st",     // 最上級
+    "e-r",      // 比較級
     "strong",   // 強い
     "weak",     // 弱い
     "gu*d",     // 良い
@@ -301,12 +306,13 @@ const BOCAS: [&str; 72] = [
     "bes^",     // 全て
     "mond",     // 世界
     "batl",     // 戦い
+    "wa-r",     // 戦争
     "final",    // 最後
     "wiz",      // 共に
     "stand",    // 立つ
     "deci",     // 決定
     "frend",    // 友達
-    "rilat",    // 関係
+    "rela",     // 関係
     "emo-t",    // 心
     "bunt",     // 同盟
     "join",     // 参加
