@@ -8,7 +8,7 @@ fn main() {
         "necanu lu*k sve-to re-zunu da*tlando estedu t:u-da-ko",
         "d*ii komp^u-tekta programengo prosactu menya de-to",
         "mio pawafula k^omavu internacia-la antiwa-ri movesto inu bes^mondo",
-        "finale deciedu joinu libero-straika anarkiizmi bunto wizu mii frendo",
+        "finale deciedu joinu libero-sta anarkiizmi bunto wizu mii frendo",
     ] {
         let ast = Node::parse(text).unwrap();
         println!(
@@ -216,7 +216,7 @@ impl Node {
                 obj,
             } => {
                 format!(
-                    "{}{}{}を{}する",
+                    "{}{}{}を{}",
                     subj.clone()
                         .map(|x| x.translate() + "が")
                         .unwrap_or("".to_string()),
@@ -228,10 +228,9 @@ impl Node {
                             } else {
                                 x
                             }
-                        } + "に"
-                            + SPACE)
+                        } + "に")
                         .collect::<Vec<String>>()
-                        .join(SPACE),
+                        .concat(),
                     obj.translate(),
                     verb.translate(),
                 )
@@ -247,8 +246,7 @@ impl Node {
                             } else {
                                 x
                             }
-                        } + "の"
-                            + SPACE)
+                        } + "の")
                         .unwrap_or("".to_string()),
                     adj.iter()
                         .map(|x| {
@@ -258,10 +256,9 @@ impl Node {
                             } else {
                                 x
                             }
-                        } + "な"
-                            + SPACE)
+                        } + "な")
                         .collect::<Vec<String>>()
-                        .join(SPACE),
+                        .concat(),
                     word.translate(),
                 )
             }
@@ -332,7 +329,7 @@ fn dict() -> HashMap<String, String> {
         ("il", "未来"),
         ("av", "現在"),
         ("i-t", "食べる"),
-        ("spi-k", "言う/喋る"),
+        ("spi-k", "言う"),
         ("a:ud", "聞く"),
         ("lu*k", "見る"),
         ("sve-t", "光"),
@@ -346,7 +343,7 @@ fn dict() -> HashMap<String, String> {
         ("liber", "自由"),
         ("re-zun", "理性"),
         ("soci", "社会"),
-        ("stran", "地域/田舎"),
+        ("stran", "地域"),
         ("naci", "国家"),
         ("blast", "権力"),
         ("anarki", "無政府"),
@@ -356,12 +353,12 @@ fn dict() -> HashMap<String, String> {
         ("program", "プログラム"),
         ("ekt", "機械"),
         ("wa-k", "仕事"),
-        ("act", "する(行為)"),
+        ("act", "する"),
         ("mov", "動き"),
         ("pros", "処理"),
         ("o-da", "命令"),
         ("plei", "遊び"),
-        ("raik", "比喩"),
+        ("raik", "みたい"),
         ("lit", "性質"),
         ("aiz", "変化"),
         ("scir", "させる"),
@@ -372,26 +369,26 @@ fn dict() -> HashMap<String, String> {
         ("on", "有る"),
         ("in", "中に"),
         ("ter", "越え"),
-        ("eng", "すること"),
+        ("eng", "こと"),
         ("de-t", "データ"),
         ("eny", "何か"),
-        ("meny", "複数の"),
+        ("meny", "複数"),
         ("k^om", "興味"),
         ("ho-p", "希望"),
         ("teik", "取得"),
         ("los", "失う"),
         ("hav", "持つ"),
-        ("o-st", "最上級"),
-        ("e-r", "比較級"),
-        ("t:u-", "も/過ぎる"),
-        ("pawa", "力/体力"),
+        ("o-st", "最も"),
+        ("e-r", "より"),
+        ("t:u-", "過ぎる"),
+        ("pawa", "力"),
         ("brein", "脳/知性"),
         ("ful", "強い"),
         ("les", "弱い"),
         ("gu*d", "良い"),
         ("ba*d", "悪い"),
         ("lo*t", "多い"),
-        ("bi*t", "少ない/ビット"),
+        ("bi*t", "少ない"),
         ("bes^", "全て"),
         ("mond", "世界"),
         ("batl", "戦い"),
