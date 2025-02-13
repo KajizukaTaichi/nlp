@@ -9,6 +9,8 @@ fn main() {
         "d*ii komp^u-tekta programengo prosactu menya de-to",
         "mio pawafula k^omavu internacia-la antiwa-ri movesto inu bes^mondo",
         "finale deciedu joinu libero-sta anarkiizmi bunto wizu mii frendo",
+        "d*io estu mia-li finala deciliti batlo",
+        "internacia-lo estilu bes^homa-li esto",
     ] {
         let ast = Node::parse(text).unwrap();
         println!(
@@ -323,6 +325,7 @@ fn dict() -> HashMap<String, String> {
         ("yu", "あなた"),
         ("hi-", "彼"),
         ("taim", "時間"),
+        ("deit", "日"),
         ("land", "場所"),
         ("est", "説明"),
         ("ed", "過去"),
@@ -368,6 +371,7 @@ fn dict() -> HashMap<String, String> {
         ("un", "無い"),
         ("on", "有る"),
         ("in", "中に"),
+        ("at", "には"),
         ("ter", "越え"),
         ("eng", "こと"),
         ("de-t", "データ"),
@@ -385,6 +389,8 @@ fn dict() -> HashMap<String, String> {
         ("brein", "脳/知性"),
         ("ful", "強い"),
         ("les", "弱い"),
+        ("prev", "前の"),
+        ("forv", "次の"),
         ("gu*d", "良い"),
         ("ba*d", "悪い"),
         ("lo*t", "多い"),
