@@ -7,10 +7,6 @@ fn main() {
         "c^u yuo estu i-tcana homa-lo",
         "necanu lu*k sve-to re-zunu da*tlando estedu t:u-da-ko",
         "d*ii komp^u-tekta programengo prosactu menya de-to",
-        "mio pawafula k^omavu internacia-la antiwa-ri movesto inu bes^mondo",
-        "finale deciedu joinu libero-sta anarkiizmi bunto wizu mii frendo",
-        "d*io estu mia-li finala deciliti batlo",
-        "internacia-lo estilu bes^homa-li esto",
     ] {
         let ast = Node::parse(text).unwrap();
         println!(
