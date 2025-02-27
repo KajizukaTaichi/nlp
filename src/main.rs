@@ -1,5 +1,5 @@
 mod engine;
-use engine::{Engine, Value};
+use engine::Engine;
 use std::collections::HashMap;
 use suffix::{ADJ, ADV, OBJ, OWN, VERB};
 
