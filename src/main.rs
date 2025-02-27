@@ -1,3 +1,5 @@
+mod engine;
+use engine::{Engine, Value};
 use std::collections::HashMap;
 use suffix::{ADJ, ADV, OBJ, OWN, VERB};
 
@@ -14,6 +16,19 @@ fn main() {
             ast.format(),
             ast.translate(),
             ast.clone()
+        );
+    }
+
+    let mut engine = Engine {
+        scope: HashMap::new(),
+    };
+    for code in ["Fugo estilu 1o a*du 2o kaku 3o", "Fugo pulu 4o"] {
+        let ast = Node::parse(code).unwrap();
+        println!(
+            "> {}\n| {}\n```\n{:?}\n```\n",
+            ast.format(),
+            ast.translate(),
+            engine.eval(&ast),
         );
     }
 }
@@ -270,7 +285,7 @@ struct Noun(Vec<Vocabulary>);
 impl Noun {
     fn parse(source: &str) -> Option<Self> {
         let chars: Vec<char> = source.chars().collect();
-        if chars.first()?.is_uppercase() {
+        if chars.first()?.is_uppercase() || source.parse::<f64>().is_ok() {
             return Some(Noun(vec![Vocabulary(source.to_string())]));
         }
 
@@ -353,11 +368,16 @@ fn dict() -> HashMap<String, String> {
         ("blast", "権力"),
         ("anarki", "無政府"),
         ("ru-n", "走る"),
+        ("k^lak", "計算"),
         ("komp^u-t", "計算"),
         ("saiens", "科学"),
         ("program", "プログラム"),
         ("ekt", "機械"),
         ("wa-k", "仕事"),
+        ("a*d", "足し"),
+        ("pul", "引き"),
+        ("kak", "掛け"),
+        ("div", "割り"),
         ("act", "する"),
         ("mov", "動き"),
         ("pros", "処理"),
@@ -388,7 +408,7 @@ fn dict() -> HashMap<String, String> {
         ("e-r", "より"),
         ("t:u-", "過ぎる"),
         ("pawa", "力"),
-        ("brein", "脳/知性"),
+        ("brein", "脳"),
         ("ful", "強い"),
         ("les", "弱い"),
         ("prev", "前の"),
