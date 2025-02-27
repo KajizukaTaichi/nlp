@@ -2,8 +2,8 @@ use std::collections::HashMap;
 use suffix::{ADJ, ADV, OBJ, OWN, VERB};
 
 fn main() {
-    println!("# Komona Lange-zi prosactisto\n");
     for text in [
+        "komona lange-za-li prosactisto",
         "c^u yuo estu i-tcana homa-lo",
         "necanu lu*k sve-to re-zunu da*tlando estedu t:u-da-ko",
         "d*ii komp^u-tekta programengo prosactu menya de-to",
@@ -270,6 +270,10 @@ struct Noun(Vec<Vocabulary>);
 impl Noun {
     fn parse(source: &str) -> Option<Self> {
         let chars: Vec<char> = source.chars().collect();
+        if chars.first()?.is_uppercase() {
+            return Some(Noun(vec![Vocabulary(source.to_string())]));
+        }
+
         let mut index = 0;
         let mut position = 1;
         let mut result = vec![];
@@ -330,11 +334,13 @@ fn dict() -> HashMap<String, String> {
         ("i-t", "食べる"),
         ("spi-k", "言う"),
         ("a:ud", "聞く"),
+        ("lange-z", "言葉"),
         ("lu*k", "見る"),
         ("sve-t", "光"),
         ("da-k", "闇"),
         ("hom", "人間"),
         ("a-l", "集合"),
+        ("komon", "共通"),
         ("can", "可能"),
         ("izm", "主義"),
         ("ist", "もの"),
