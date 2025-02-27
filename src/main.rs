@@ -22,7 +22,7 @@ fn main() {
     let mut engine = Engine {
         scope: HashMap::new(),
     };
-    for code in ["Fugo estilu 1o a*du 2o kaku 3o", "Fugo pulu 4o"] {
+    for code in ["Fugo estilu 1o a*du 2o kaku 3o", "10o divu 5o pulu Fugo"] {
         let ast = Node::parse(code).unwrap();
         println!(
             "> {}\n| {}\n```\n{:?}\n```\n",
