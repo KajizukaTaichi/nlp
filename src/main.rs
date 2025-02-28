@@ -26,8 +26,8 @@ fn main() {
         scope: HashMap::new(),
     };
     for code in r#"
-        Fugo estu 1o a*dnamu 2o kaknamu 3o;
-        10o divnamu 5o pulnamu Fugo
+        Fugo estu Hello a*dcara-lu Mondo;
+        10o divnamu 5o pulnamu teiku Fugo
     "#
     .split(";")
     {
@@ -390,7 +390,7 @@ fn dict() -> HashMap<String, String> {
         ("act", "する"),
         ("mov", "動き"),
         ("pros", "処理"),
-        ("o-da", "秩序"),
+        ("o-d", "秩序"),
         ("val", "値"),
         ("plei", "遊び"),
         ("raik", "みたい"),
