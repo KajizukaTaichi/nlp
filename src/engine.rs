@@ -39,28 +39,22 @@ impl Engine {
                 let lhs = self.eval(&*subj)?;
                 let rhs = self.eval(&*obj)?;
 
-                if verb.last()?.0 == "nam" {
-                    Some(match verb.first()?.0.as_str() {
+                if verb.first()?.0 == "nam" {
+                    Some(match verb.last()?.0.as_str() {
                         "a*d" => Value::Number(lhs.as_number()? + rhs.as_number()?),
                         "pul" => Value::Number(lhs.as_number()? - rhs.as_number()?),
                         "kak" => Value::Number(lhs.as_number()? * rhs.as_number()?),
                         "div" => Value::Number(lhs.as_number()? / rhs.as_number()?),
                         _ => return None,
                     })
-                } else if verb
-                    .get(1..)?
-                    .iter()
-                    .map(|x| x.0.clone())
-                    .collect::<Vec<String>>()
-                    .concat()
-                    == "cara-l"
-                {
-                    Some(match verb.first()?.0.as_str() {
+                } else if verb.first()?.0 == "car" && verb.get(1)?.0 == "a-l" {
+                    Some(match verb.last()?.0.as_str() {
                         "a*d" => Value::String(lhs.as_string()? + &rhs.as_string()?),
                         _ => return None,
                     })
                 } else if verb.first()?.0 == "est" {
-                    self.scope.insert(lhs.as_string()?, rhs)
+                    self.scope.insert(lhs.as_string()?, rhs.clone());
+                    Some(rhs)
                 } else {
                     None
                 }
