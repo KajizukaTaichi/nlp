@@ -4,13 +4,14 @@ use std::collections::HashMap;
 use suffix::{ADJ, ADV, OBJ, OWN, VERB};
 
 fn main() {
-    for text in r#"
-        komona langa-li prosactisto;
-        c^u yuo estu i-tcana homa-lo;
-        mio lavu k^alkwazista o-da-lacto
-    "#
-    .split(";")
-    {
+    for text in [
+        // 共通言語処理系
+        "komona langa-li prosactisto",
+        // あなたは食べられる人類？
+        "c^u yuo estu i-tcana homa-lo",
+        // 私はコンピュータプログラミングが大好き
+        "mio lavu k^alkwazista o-da-lacto",
+    ] {
         let ast = Node::parse(text).unwrap();
         println!(
             "> {}\n| {}\n```\n{:?}\n```\n",
