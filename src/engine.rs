@@ -4,6 +4,7 @@ use crate::*;
 pub enum Value {
     Number(f64),
     String(String),
+    Bool(bool),
 }
 
 impl Value {
@@ -25,6 +26,7 @@ impl Value {
 #[derive(Debug, Clone)]
 pub struct Engine {
     pub scope: HashMap<String, Value>,
+    pub is_ask: bool,
 }
 
 impl Engine {
@@ -53,8 +55,12 @@ impl Engine {
                         _ => return None,
                     })
                 } else if verb.first()?.0 == "est" {
-                    self.scope.insert(lhs.as_string()?, rhs.clone());
-                    Some(rhs)
+                    if self.is_ask {
+                        Some(Value::Bool(format!("{lhs:?}") == format!("{rhs:?}")))
+                    } else {
+                        self.scope.insert(lhs.as_string()?, rhs.clone());
+                        Some(rhs)
+                    }
                 } else {
                     None
                 }
@@ -65,9 +71,12 @@ impl Engine {
                 subj: None,
                 obj,
             } if adv.is_empty() => {
-                let rhs = self.eval(&*obj)?;
                 if verb.first()?.0 == "ge*t" {
+                    let rhs = self.eval(&*obj)?;
                     self.scope.get(&rhs.as_string()?).cloned()
+                } else if verb.first()?.0 == "c^" {
+                    self.is_ask = true;
+                    self.eval(&*obj)
                 } else {
                     None
                 }
