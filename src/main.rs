@@ -369,7 +369,7 @@ fn dict() -> HashMap<String, String> {
         ("stran", "地域"),
         ("naci", "国家"),
         ("blast", "権力"),
-        ("anarki", "無政府"),
+        ("anark", "無政府"),
         ("ru-n", "走る"),
         ("k^lak", "計算"),
         ("komp^u-t", "計算"),
