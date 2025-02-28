@@ -28,7 +28,7 @@ fn main() {
     for code in r#"
         Foo estu 1o nama*du 2o;
         5o nampulu ge*tu Foo;
-        c^u 3o estu ge*tu Foo
+        lu*ksciru Hello yeske-su c^u 3o estu ge*tu Foo
     "#
     .split(";")
     {
