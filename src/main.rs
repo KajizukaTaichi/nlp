@@ -4,12 +4,15 @@ use std::collections::HashMap;
 use suffix::{ADJ, ADV, OBJ, OWN, VERB};
 
 fn main() {
-    for text in [
-        "komona langa-li prosactisto",
-        "c^u yuo estu i-tcana homa-lo",
-        "necanedu lu*ku sve-to re-zunu da*tlando estu t:u-da-ko",
-        "d:ii komp^u-tekta programengo prosactu menya de-to",
-    ] {
+    for text in r#"
+        komona langa-li prosactisto.
+        c^u yuo estu i-tcana homa-lo.
+        mio komp^u-tekta programengo.
+        d:ideito estu finale decilita batlwa-ro.
+        internacia-lo estilu bes^homa-lo
+    "#
+    .split(".")
+    {
         let ast = Node::parse(text).unwrap();
         println!(
             "> {}\n| {}\n```\n{:?}\n```\n",
@@ -400,12 +403,16 @@ fn dict() -> HashMap<String, String> {
         ("eny", "何か"),
         ("meny", "複数"),
         ("k^om", "興味"),
+        ("lav", "愛"),
+        ("feiv", "好"),
         ("ho-p", "希望"),
         ("teik", "取得"),
         ("los", "失う"),
         ("hav", "持つ"),
         ("o-st", "最も"),
         ("e-r", "より"),
+        ("und", "かつ"),
+        ("lor", "また"),
         ("t:u-", "過ぎる"),
         ("pawa", "力"),
         ("brein", "脳"),
