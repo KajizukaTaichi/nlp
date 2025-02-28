@@ -65,6 +65,19 @@ impl Engine {
                     None
                 }
             }
+            Node::Verb {
+                verb: Noun(verb),
+                adv,
+                subj: None,
+                obj,
+            } if adv.is_empty() => {
+                let rhs = self.eval(&*obj)?;
+                if verb.first()?.0 == "teik" {
+                    self.scope.get(&rhs.as_string()?).cloned()
+                } else {
+                    None
+                }
+            }
             Node::Word {
                 word,
                 own: None,
@@ -73,12 +86,7 @@ impl Engine {
                 .format()
                 .parse()
                 .map(|x| Some(Value::Number(x)))
-                .unwrap_or(Some(
-                    self.scope
-                        .get(&word.format())
-                        .unwrap_or(&Value::String(word.format()))
-                        .clone(),
-                )),
+                .unwrap_or(Some(Value::String(word.format()))),
             _ => None,
         }
     }
