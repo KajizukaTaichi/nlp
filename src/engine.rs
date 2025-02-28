@@ -77,8 +77,8 @@ impl Engine {
                 } else if verb.last()?.0 == "ke-s" {
                     match verb.first()?.0.as_str() {
                         "yes" => {
-                            if self.eval(&*obj)?.as_bool()? {
-                                self.eval(&*subj)
+                            if self.eval(&*subj)?.as_bool()? {
+                                self.eval(&*obj)
                             } else {
                                 Some(Value::Null)
                             }
