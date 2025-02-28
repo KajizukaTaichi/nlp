@@ -8,7 +8,7 @@ fn main() {
         komona langa-li prosactisto;
         c^u yuo estu i-tcana homa-lo;
         mio lavu k^alkwazista d^a-lacto;
-        d:ideito estu finale decilita batlwa-ro;
+        d:ideito estu finali decilita batlwa-ro;
         internacia-lo estilu bes^homa-lo
     "#
     .split(";")
