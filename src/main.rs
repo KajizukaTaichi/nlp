@@ -8,7 +8,7 @@ fn main() {
         "komona langa-li prosactisto",
         "c^u yuo estu i-tcana homa-lo",
         "necanedu lu*ku sve-to re-zunu da*tlando estu t:u-da-ko",
-        "d*ii komp^u-tekta programengo prosactu menya de-to",
+        "d:ii komp^u-tekta programengo prosactu menya de-to",
     ] {
         let ast = Node::parse(text).unwrap();
         println!(
@@ -334,7 +334,7 @@ fn dict() -> HashMap<String, String> {
         ("d^", "命令"),
         ("c^", "疑問"),
         ("wa*t", "何の"),
-        ("d*i", "これ"),
+        ("d:i", "これ"),
         ("da*t", "それ"),
         ("mi", "私"),
         ("yu", "あなた"),
