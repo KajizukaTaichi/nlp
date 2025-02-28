@@ -338,7 +338,7 @@ fn dict() -> HashMap<String, String> {
         ("da*t", "それ"),
         ("mi", "私"),
         ("yu", "あなた"),
-        ("hi-", "彼"),
+        ("ze", "彼"),
         ("taim", "時間"),
         ("deit", "日"),
         ("land", "場所"),
