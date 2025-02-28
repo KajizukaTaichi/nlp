@@ -5,6 +5,7 @@ pub enum Value {
     Number(f64),
     String(String),
     Bool(bool),
+    Null,
 }
 
 impl Value {
@@ -18,6 +19,13 @@ impl Value {
     fn as_string(&self) -> Option<String> {
         match self {
             Self::String(x) => Some(x.clone()),
+            _ => None,
+        }
+    }
+
+    fn as_bool(&self) -> Option<bool> {
+        match self {
+            Self::Bool(x) => Some(x.clone()),
             _ => None,
         }
     }
@@ -38,11 +46,10 @@ impl Engine {
                 subj: Some(subj),
                 obj,
             } if adv.is_empty() => {
-                let lhs = self.eval(&*subj)?;
-                let rhs = self.eval(&*obj)?;
-
                 // 数値
                 if verb.first()?.0 == "nam" {
+                    let lhs = self.eval(&*subj)?;
+                    let rhs = self.eval(&*obj)?;
                     Some(match verb.last()?.0.as_str() {
                         "a*d" => Value::Number(lhs.as_number()? + rhs.as_number()?),
                         "pul" => Value::Number(lhs.as_number()? - rhs.as_number()?),
@@ -52,23 +59,31 @@ impl Engine {
                     })
                 // 文字列
                 } else if verb.first()?.0 == "car" && verb.get(1)?.0 == "a-l" {
+                    let lhs = self.eval(&*subj)?;
+                    let rhs = self.eval(&*obj)?;
                     Some(match verb.last()?.0.as_str() {
                         "a*d" => Value::String(lhs.as_string()? + &rhs.as_string()?),
                         _ => return None,
                     })
                 } else if verb.first()?.0 == "est" {
+                    let lhs = self.eval(&*subj)?;
+                    let rhs = self.eval(&*obj)?;
                     if self.is_ask {
                         Some(Value::Bool(format!("{lhs:?}") == format!("{rhs:?}")))
                     } else {
                         self.scope.insert(lhs.as_string()?, rhs.clone());
                         Some(rhs)
                     }
-                } else if verb.first()?.0 == "est" {
-                    if self.is_ask {
-                        Some(Value::Bool(format!("{lhs:?}") == format!("{rhs:?}")))
-                    } else {
-                        self.scope.insert(lhs.as_string()?, rhs.clone());
-                        Some(rhs)
+                } else if verb.last()?.0 == "ke-s" {
+                    match verb.first()?.0.as_str() {
+                        "yes" => {
+                            if self.eval(&*obj)?.as_bool()? {
+                                self.eval(&*subj)
+                            } else {
+                                Some(Value::Null)
+                            }
+                        }
+                        _ => None,
                     }
                 } else {
                     None
@@ -85,7 +100,12 @@ impl Engine {
                     self.scope.get(&rhs.as_string()?).cloned()
                 } else if verb.first()?.0 == "c^" {
                     self.is_ask = true;
-                    self.eval(&*obj)
+                    let result = self.eval(&*obj);
+                    self.is_ask = false;
+                    result
+                } else if verb.first()?.0 == "lu*k" && verb.last()?.0 == "scir" {
+                    println!("{}", self.eval(&*obj)?.as_string()?);
+                    Some(Value::Null)
                 } else {
                     None
                 }
