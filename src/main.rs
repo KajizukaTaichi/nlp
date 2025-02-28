@@ -24,7 +24,7 @@ fn main() {
     let mut engine = Engine {
         scope: HashMap::new(),
     };
-    for code in r#"Foo estu 1o a*dnamu 2o; 5o pulnamu ge*tu Foo"#.split(";") {
+    for code in r#"Foo estu 1o nama*du 2o; 5o nampulu ge*tu Foo"#.split(";") {
         let ast = Node::parse(code).unwrap();
         println!(
             "> {}\n| {}\n```\n{:?}\n```\n",
