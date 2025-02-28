@@ -6,11 +6,11 @@ use suffix::{ADJ, ADV, OBJ, OWN, VERB};
 fn main() {
     for text in [
         // 共通言語処理系
-        "komona langa-li prosisto",
+        "komonlanga-li prosisto",
         // あなたは食べられる人類？
         "c^u yuo estu i-tcana homa-lo",
-        // 私たちはコンピュータプログラミングが大好き
-        "miumo lavu k^alkte*kista kond^a-lacto",
+        // 私たちは最もコンピュータプログラミングが大好き
+        "miumo o-ste lavu k^alkte*kista kond^a-lacto",
     ] {
         let ast = Node::parse(text).unwrap();
         println!(
