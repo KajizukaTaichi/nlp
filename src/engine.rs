@@ -3,7 +3,7 @@ use crate::*;
 #[derive(Debug, Clone)]
 pub enum Value {
     Number(f64),
-    Symbol(String),
+    String(String),
 }
 
 #[derive(Debug, Clone)]
@@ -33,7 +33,7 @@ impl Engine {
                         } else {
                             None
                         }
-                    } else if let Value::Symbol(lhs) = lhs {
+                    } else if let Value::String(lhs) = lhs {
                         Some(match verb.first()?.0.as_str() {
                             "est" => {
                                 self.scope.insert(lhs, rhs.clone());
@@ -59,8 +59,8 @@ impl Engine {
                 .unwrap_or(Some(
                     self.scope
                         .get(&word.format())
-                        .cloned()
-                        .unwrap_or(Value::Symbol(word.format())),
+                        .unwrap_or(&Value::String(word.format()))
+                        .clone(),
                 )),
             _ => None,
         }
