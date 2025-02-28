@@ -8,7 +8,7 @@ fn main() {
         komona langa-li prosactisto;
         c^u yuo estu i-tcana homa-lo;
         mio lavu k^alkwazista d^a-lacto;
-        d:ideito estu finali decilita batlwa-ro;
+        d:ideito estu fina-li decilita batlwa-ro;
         internacia-lo estilu bes^homa-lo
     "#
     .split(";")
@@ -433,7 +433,7 @@ fn dict() -> HashMap<String, String> {
         ("mond", "世界"),
         ("batl", "戦い"),
         ("wa-r", "争う"),
-        ("final", "最後"),
+        ("fin", "最後"),
         ("wiz", "共に"),
         ("stand", "立つ"),
         ("deci", "決定"),
