@@ -7,7 +7,7 @@ fn main() {
     for text in r#"
         komona langa-li prosactisto.
         c^u yuo estu i-tcana homa-lo.
-        mio lavu k^alkekt engo.
+        mio lavu k^alkwazista d^a-lacto.
         d:ideito estu finale decilita batlwa-ro.
         internacia-lo estilu bes^homa-lo
     "#
@@ -25,7 +25,7 @@ fn main() {
     let mut engine = Engine {
         scope: HashMap::new(),
     };
-    for code in "Fugo estilu 1o a*du 2o kaku 3o \n 10o divu 5o pulu Fugo".lines() {
+    for code in "Fugo estu 1o a*dnamu 2o kaknamu 3o \n 10o divnamu 5o pulnamu Fugo".lines() {
         let ast = Node::parse(code).unwrap();
         println!(
             "> {}\n| {}\n```\n{:?}\n```\n",
@@ -371,7 +371,7 @@ fn dict() -> HashMap<String, String> {
         ("blast", "権力"),
         ("anark", "無政府"),
         ("ru-n", "走る"),
-        ("k^lak", "計算"),
+        ("k^alk", "計算"),
         ("saiens", "学問"),
         ("memor", "記憶"),
         ("nam", "数"),
@@ -399,7 +399,6 @@ fn dict() -> HashMap<String, String> {
         ("in", "中に"),
         ("at", "には"),
         ("ter", "越え"),
-        ("eng", "こと"),
         ("de-t", "データ"),
         ("eny", "何か"),
         ("meny", "複数"),
