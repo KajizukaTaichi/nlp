@@ -7,7 +7,7 @@ fn main() {
     for text in r#"
         komona langa-li prosactisto.
         c^u yuo estu i-tcana homa-lo.
-        mio komp^u-tekta programengo.
+        mii feivo-sta saienso komp^u-tekta programengo.
         d:ideito estu finale decilita batlwa-ro.
         internacia-lo estilu bes^homa-lo
     "#
@@ -373,7 +373,7 @@ fn dict() -> HashMap<String, String> {
         ("ru-n", "走る"),
         ("k^lak", "計算"),
         ("komp^u-t", "計算"),
-        ("saiens", "科学"),
+        ("saiens", "学"),
         ("program", "プログラム"),
         ("ekt", "機械"),
         ("wa-k", "仕事"),
@@ -388,6 +388,7 @@ fn dict() -> HashMap<String, String> {
         ("plei", "遊び"),
         ("raik", "みたい"),
         ("lit", "性質"),
+        ("kain", "種類"),
         ("aiz", "変化"),
         ("scir", "させる"),
         ("ne", "否定"),
