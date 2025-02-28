@@ -7,7 +7,7 @@ fn main() {
     for text in [
         "komona langa-li prosactisto",
         "c^u yuo estu i-tcana homa-lo",
-        "necanedu lu*k sve-to re-zunu da*tlando estedu t:u-da-ko",
+        "necanedu lu*ku sve-to re-zunu da*tlando estu t:u-da-ko",
         "d*ii komp^u-tekta programengo prosactu menya de-to",
     ] {
         let ast = Node::parse(text).unwrap();
