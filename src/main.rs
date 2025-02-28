@@ -10,7 +10,7 @@ fn main() {
         // あなたは食べられる人類？
         "c^u yuo estu i-tcana homa-lo",
         // 私はコンピュータプログラミングが大好き
-        "mio lavu k^alkwazista o-da-lacto",
+        "mio lavu k^alkwazista d^a-lacto",
     ] {
         let ast = Node::parse(text).unwrap();
         println!(
