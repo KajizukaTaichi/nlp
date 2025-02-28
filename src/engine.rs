@@ -72,7 +72,7 @@ impl Engine {
                 obj,
             } if adv.is_empty() => {
                 let rhs = self.eval(&*obj)?;
-                if verb.first()?.0 == "teik" {
+                if verb.first()?.0 == "ge*t" {
                     self.scope.get(&rhs.as_string()?).cloned()
                 } else {
                     None
