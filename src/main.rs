@@ -411,7 +411,7 @@ fn dict() -> HashMap<String, String> {
         ("ter", "越え"),
         ("de-t", "データ"),
         ("eny", "何か"),
-        ("meny", "複"),
+        ("um", "複"),
         ("k^om", "興味"),
         ("lav", "愛"),
         ("feiv", "好"),
