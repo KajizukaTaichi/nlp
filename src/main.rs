@@ -28,6 +28,7 @@ fn main() {
     for code in r#"
         Fooo estu 1o nama*du 2o;
         5o nampulu ge*tu Fooo;
+        yeso ifu c^u 3o estu ge*tu Fooo
     "#
     .split(";")
     {
@@ -342,6 +343,7 @@ fn dict() -> HashMap<String, String> {
         ("d^", "命令"),
         ("c^", "疑問"),
         ("ke-s", "条件"),
+        ("if", "もし"),
         ("wa*t", "何の"),
         ("d:i", "これ"),
         ("da*t", "それ"),
