@@ -22,13 +22,17 @@ impl Engine {
             } if adv.is_empty() => {
                 if let (Some(lhs), Some(rhs)) = (self.eval(&*subj), self.eval(&*obj)) {
                     if let (Value::Number(lhs), Value::Number(rhs)) = (lhs.clone(), rhs.clone()) {
-                        Some(match verb.first()?.0.as_str() {
-                            "a*d" => Value::Number(lhs + rhs),
-                            "pul" => Value::Number(lhs - rhs),
-                            "kak" => Value::Number(lhs * rhs),
-                            "div" => Value::Number(lhs / rhs),
-                            _ => return None,
-                        })
+                        if verb.last()?.0 == "nam" {
+                            Some(match verb.first()?.0.as_str() {
+                                "a*d" => Value::Number(lhs + rhs),
+                                "pul" => Value::Number(lhs - rhs),
+                                "kak" => Value::Number(lhs * rhs),
+                                "div" => Value::Number(lhs / rhs),
+                                _ => return None,
+                            })
+                        } else {
+                            None
+                        }
                     } else if let Value::Symbol(lhs) = lhs {
                         Some(match verb.first()?.0.as_str() {
                             "est" => {
