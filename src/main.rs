@@ -6,7 +6,7 @@ use suffix::{ADJ, ADV, OBJ, OWN, VERB};
 fn main() {
     for text in [
         // 共通言語処理系
-        "komona langa-li prosactisto",
+        "komona langa-li prosisto",
         // あなたは食べられる人類？
         "c^u yuo estu i-tcana homa-lo",
         // 私はコンピュータプログラミングが大好き
