@@ -420,7 +420,7 @@ fn dict() -> HashMap<String, String> {
         ("bes^", "全て"),
         ("mond", "世界"),
         ("batl", "戦い"),
-        ("wa-r", "戦争"),
+        ("wa-r", "争う"),
         ("final", "最後"),
         ("wiz", "共に"),
         ("stand", "立つ"),
