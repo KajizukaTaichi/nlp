@@ -6,6 +6,22 @@ pub enum Value {
     String(String),
 }
 
+impl Value {
+    fn as_number(&self) -> Option<f64> {
+        match self {
+            Self::Number(x) => Some(*x),
+            _ => None,
+        }
+    }
+
+    fn as_string(&self) -> Option<String> {
+        match self {
+            Self::String(x) => Some(x.clone()),
+            _ => None,
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct Engine {
     pub scope: HashMap<String, Value>,
@@ -20,30 +36,31 @@ impl Engine {
                 subj: Some(subj),
                 obj,
             } if adv.is_empty() => {
-                if let (Some(lhs), Some(rhs)) = (self.eval(&*subj), self.eval(&*obj)) {
-                    if let (Value::Number(lhs), Value::Number(rhs)) = (lhs.clone(), rhs.clone()) {
-                        if verb.last()?.0 == "nam" {
-                            Some(match verb.first()?.0.as_str() {
-                                "a*d" => Value::Number(lhs + rhs),
-                                "pul" => Value::Number(lhs - rhs),
-                                "kak" => Value::Number(lhs * rhs),
-                                "div" => Value::Number(lhs / rhs),
-                                _ => return None,
-                            })
-                        } else {
-                            None
-                        }
-                    } else if let Value::String(lhs) = lhs {
-                        Some(match verb.first()?.0.as_str() {
-                            "est" => {
-                                self.scope.insert(lhs, rhs.clone());
-                                rhs
-                            }
-                            _ => return None,
-                        })
-                    } else {
-                        None
-                    }
+                let lhs = self.eval(&*subj)?;
+                let rhs = self.eval(&*obj)?;
+
+                if verb.last()?.0 == "nam" {
+                    Some(match verb.first()?.0.as_str() {
+                        "a*d" => Value::Number(lhs.as_number()? + rhs.as_number()?),
+                        "pul" => Value::Number(lhs.as_number()? - rhs.as_number()?),
+                        "kak" => Value::Number(lhs.as_number()? * rhs.as_number()?),
+                        "div" => Value::Number(lhs.as_number()? / rhs.as_number()?),
+                        _ => return None,
+                    })
+                } else if verb
+                    .get(1..)?
+                    .iter()
+                    .map(|x| x.0.clone())
+                    .collect::<Vec<String>>()
+                    .concat()
+                    == "cara-l"
+                {
+                    Some(match verb.first()?.0.as_str() {
+                        "a*d" => Value::String(lhs.as_string()? + &rhs.as_string()?),
+                        _ => return None,
+                    })
+                } else if verb.first()?.0 == "est" {
+                    self.scope.insert(lhs.as_string()?, rhs)
                 } else {
                     None
                 }
