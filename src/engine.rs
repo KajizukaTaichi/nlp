@@ -74,16 +74,11 @@ impl Engine {
                         self.scope.insert(lhs.as_string()?, rhs.clone());
                         Some(rhs)
                     }
-                } else if verb.last()?.0 == "ke-s" {
-                    match verb.first()?.0.as_str() {
-                        "yes" => {
-                            if self.eval(&*obj)?.as_bool()? {
-                                self.eval(&*subj)
-                            } else {
-                                Some(Value::Null)
-                            }
-                        }
-                        _ => None,
+                } else if verb.last()?.0 == "if" {
+                    if self.eval(&*obj)?.as_bool()? {
+                        self.eval(&*subj)
+                    } else {
+                        Some(Value::Null)
                     }
                 } else {
                     None
