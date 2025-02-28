@@ -26,9 +26,8 @@ fn main() {
         is_ask: false,
     };
     for code in r#"
-        Foo estu 1o nama*du 2o;
-        5o nampulu ge*tu Foo;
-        lu*ksciru Hello yeske-su c^u 3o estu ge*tu Foo
+        Fooo estu 1o nama*du 2o;
+        5o nampulu ge*tu Fooo
     "#
     .split(";")
     {
