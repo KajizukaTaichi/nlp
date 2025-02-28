@@ -10,7 +10,7 @@ fn main() {
         // あなたは食べられる人類？
         "c^u yuo estu i-tcana homa-lo",
         // 私はコンピュータプログラミングが大好き
-        "mio lavu k^alkwazista d^a-lacto",
+        "mio lavu k^alkte*kista kond^a-lacto",
     ] {
         let ast = Node::parse(text).unwrap();
         println!(
@@ -24,12 +24,7 @@ fn main() {
     let mut engine = Engine {
         scope: HashMap::new(),
     };
-    for code in r#"
-        Foo estu 1o a*dnamu 2o;
-        10o divnamu 5o pulnamu teiku Foo
-    "#
-    .split(";")
-    {
+    for code in r#"Foo estu 1o a*dnamu 2o; 5o pulnamu ge*tu Foo"#.split(";") {
         let ast = Node::parse(code).unwrap();
         println!(
             "> {}\n| {}\n```\n{:?}\n```\n",
@@ -380,7 +375,7 @@ fn dict() -> HashMap<String, String> {
         ("memor", "記憶"),
         ("nam", "数"),
         ("car", "字"),
-        ("waz", "技術"),
+        ("te*k", "技術"),
         ("wa-k", "仕事"),
         ("a*d", "足し"),
         ("pul", "引き"),
@@ -402,6 +397,7 @@ fn dict() -> HashMap<String, String> {
         ("yes", "肯定"),
         ("un", "無い"),
         ("on", "有る"),
+        ("kon", "作る"),
         ("in", "中に"),
         ("at", "には"),
         ("ter", "越え"),
@@ -412,7 +408,7 @@ fn dict() -> HashMap<String, String> {
         ("lav", "愛"),
         ("feiv", "好"),
         ("ho-p", "希望"),
-        ("teik", "取得"),
+        ("ge*t", "取得"),
         ("los", "失う"),
         ("hav", "持つ"),
         ("o-st", "最も"),
