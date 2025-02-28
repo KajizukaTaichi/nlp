@@ -342,6 +342,7 @@ fn dict() -> HashMap<String, String> {
     for (k, v) in [
         ("d^", "命令"),
         ("c^", "疑問"),
+        ("ke-s", "条件"),
         ("wa*t", "何の"),
         ("d:i", "これ"),
         ("da*t", "それ"),
