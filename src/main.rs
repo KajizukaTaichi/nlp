@@ -5,13 +5,13 @@ use suffix::{ADJ, ADV, OBJ, OWN, VERB};
 
 fn main() {
     for text in r#"
-        komona langa-li prosactisto.
-        c^u yuo estu i-tcana homa-lo.
-        mio lavu k^alkwazista d^a-lacto.
-        d:ideito estu finale decilita batlwa-ro.
+        komona langa-li prosactisto;
+        c^u yuo estu i-tcana homa-lo;
+        mio lavu k^alkwazista d^a-lacto;
+        d:ideito estu finale decilita batlwa-ro;
         internacia-lo estilu bes^homa-lo
     "#
-    .split(".")
+    .split(";")
     {
         let ast = Node::parse(text).unwrap();
         println!(
@@ -25,7 +25,12 @@ fn main() {
     let mut engine = Engine {
         scope: HashMap::new(),
     };
-    for code in "Fugo estu 1o a*dnamu 2o kaknamu 3o \n 10o divnamu 5o pulnamu Fugo".lines() {
+    for code in r#"
+        Fugo estu 1o a*dnamu 2o kaknamu 3o;
+        10o divnamu 5o pulnamu Fugo
+    "#
+    .split(";")
+    {
         let ast = Node::parse(code).unwrap();
         println!(
             "> {}\n| {}\n```\n{:?}\n```\n",
