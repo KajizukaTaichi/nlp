@@ -7,9 +7,7 @@ fn main() {
     for text in r#"
         komona langa-li prosactisto;
         c^u yuo estu i-tcana homa-lo;
-        mio lavu k^alkwazista o-da-lacto;
-        d:ideito estu fina-li decilita batlwa-ro;
-        internacia-lo estilu bes^homa-lo
+        mio lavu k^alkwazista o-da-lacto
     "#
     .split(";")
     {
@@ -26,8 +24,8 @@ fn main() {
         scope: HashMap::new(),
     };
     for code in r#"
-        Fugo estu Hello a*dcara-lu Mondo;
-        10o divnamu 5o pulnamu teiku Fugo
+        Foo estu 1o a*dnamu 2o;
+        10o divnamu 5o pulnamu teiku Foo
     "#
     .split(";")
     {
