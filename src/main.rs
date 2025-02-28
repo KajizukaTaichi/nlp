@@ -5,7 +5,7 @@ use suffix::{ADJ, ADV, OBJ, OWN, VERB};
 
 fn main() {
     for text in [
-        "komona lange-za-li prosactisto",
+        "komona langa-li prosactisto",
         "c^u yuo estu i-tcana homa-lo",
         "necanu lu*k sve-to re-zunu da*tlando estedu t:u-da-ko",
         "d*ii komp^u-tekta programengo prosactu menya de-to",
@@ -349,7 +349,7 @@ fn dict() -> HashMap<String, String> {
         ("i-t", "食べる"),
         ("spi-k", "言う"),
         ("a:ud", "聞く"),
-        ("lange-z", "言葉"),
+        ("lang", "言葉"),
         ("lu*k", "見る"),
         ("sve-t", "光"),
         ("da-k", "闇"),
